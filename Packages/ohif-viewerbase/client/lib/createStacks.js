@@ -65,6 +65,8 @@ const createStacks = study => {
     // Define an empty array of display sets
     const displaySets = [];
 
+    console.log(study);
+
     if (!study || !study.getSeriesCount()) {
         return displaySets;
     }

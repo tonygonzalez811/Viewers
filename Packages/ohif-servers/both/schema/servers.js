@@ -180,7 +180,7 @@ export const UISettings = new SimpleSchema({
     cornerstoneRenderer: {
         type: String,
         label: 'Cornerstone default image renderer',
-        defaultValue: 'webgl'
+        defaultValue: 'canvas'
     },
     sortSeriesByIncomingOrder: {
         type: Boolean,
