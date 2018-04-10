@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { ImageSet } from './classes/ImageSet';
 import { isImage } from './isImage';
+import { handleSR } from './handleSR';
 import { OHIF } from 'meteor/ohif:core';
 
 const isMultiFrame = instance => {
@@ -73,9 +74,14 @@ const createStacks = study => {
 
     // Loop through the series (SeriesMetadata)
     study.forEachSeries(series => {
+        console.log(series);
         // If the series has no instances, skip it
         if (!series.getInstanceCount()) {
             return;
+        }
+
+        if (series.getDataProperty('modality') === 'SR') {
+            return handleSR(series);
         }
 
         // Search through the instances (InstanceMedatada object) of this series
