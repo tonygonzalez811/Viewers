@@ -1,4 +1,4 @@
-function loadSRTools(Part10SRArrayBuffer) {
+function loadSRTools(Part10SRArrayBuffer, displaySets) {
     // get the dicom data as an Object
     let dicomData = dcmjs.data.DicomMessage.readFile(Part10SRArrayBuffer);
 
@@ -7,17 +7,17 @@ function loadSRTools(Part10SRArrayBuffer) {
     // add the length measurement to cornerstoneTools
     let toolStateManager = cornerstoneTools.globalImageIdSpecificToolStateManager;
 
-    let toolState = imagingMeasurementsToToolState(dataset);
+    let toolState = imagingMeasurementsToToolState(dataset, displaySets);
 
     toolStateManager.restoreToolState(toolState);
 }
 
-function imagingMeasurementsToToolState(dataset) {
+function imagingMeasurementsToToolState(dataset, displaySets) {
     // for now, assume dataset is a TID1500 SR with length measurements
     // TODO: generalize to the various kinds of report
     // TODO: generalize to the kinds of measurements the Viewer supports
     if (dataset.ContentTemplateSequence.TemplateIdentifier !== "1500") {
-        console.log("This code can only interpret TID 1500");
+        console.warn("This code can only interpret TID 1500");
     }
     toArray = function(x) { return (x.constructor.name === "Array" ? x : [x]); }
 
@@ -51,20 +51,17 @@ function imagingMeasurementsToToolState(dataset) {
 
     let imageId;
 
-    // TODO: Replace this with a map loopup from SOPInstanceUID / FrameNumber to imageID
-    OHIF.viewer.Studies.all().forEach(study => {
-        study.displaySets.forEach(displaySet => {
-            displaySet.images.forEach(image => {
-                if (lengthState.ReferencedInstanceUID !== image.sopInstanceUID) {
-                    return;
-                }
-
-                imageId = image.getImageId();
-            });
+    displaySets.forEach(displaySet => {
+        displaySet.images.forEach(instanceMetadata => {
+            if (lengthState.ReferencedInstanceUID === instanceMetadata._sopInstanceUID) {
+                imageId = instanceMetadata.getImageId();
+                imageId += `&frame=${lengthState.ReferencedFrameNumber}`;
+            }
         });
     });
 
     if (!imageId) {
+        console.warn(`No imageId for ${lengthState.ReferencedInstanceUID}`);
         return;
     }
 
@@ -117,8 +114,7 @@ function imagingMeasurementsToToolState(dataset) {
     return JSON.parse(toolState);
 }
 
-export function handleSR(series) {
-    console.log(series);
+export function handleSR(series, displaySets) {
 
     const instance = series.getFirstInstance();
 
@@ -126,7 +122,7 @@ export function handleSR(series) {
     request.responseType = 'arraybuffer';
     request.open('GET', instance.getDataProperty('wadouri'));
     request.onload = function (progressEvent) {
-        loadSRTools(progressEvent.currentTarget.response);
+        loadSRTools(progressEvent.currentTarget.response, displaySets);
     };
 
     request.send();

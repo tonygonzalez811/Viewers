@@ -66,22 +66,21 @@ const createStacks = study => {
     // Define an empty array of display sets
     const displaySets = [];
 
-    console.log(study);
-
     if (!study || !study.getSeriesCount()) {
         return displaySets;
     }
 
     // Loop through the series (SeriesMetadata)
+    let srSeries = [];
     study.forEachSeries(series => {
-        console.log(series);
         // If the series has no instances, skip it
         if (!series.getInstanceCount()) {
             return;
         }
 
         if (series.getDataProperty('modality') === 'SR') {
-            return handleSR(series);
+            srSeries.push(series);
+            return;
         }
 
         // Search through the instances (InstanceMedatada object) of this series
@@ -124,6 +123,11 @@ const createStacks = study => {
             displaySet.setAttribute('studyInstanceUid', study.getStudyInstanceUID());
             displaySets.push(displaySet);
         }
+    });
+
+    // handle the SR documents after the others so that the imageIds will have been defined
+    srSeries.forEach(series => {
+        handleSR(series, displaySets);
     });
 
     return displaySets;
