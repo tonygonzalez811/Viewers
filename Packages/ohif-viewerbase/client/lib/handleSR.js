@@ -55,7 +55,14 @@ function imagingMeasurementsToToolState(dataset, displaySets) {
         displaySet.images.forEach(instanceMetadata => {
             if (lengthState.ReferencedInstanceUID === instanceMetadata._sopInstanceUID) {
                 imageId = instanceMetadata.getImageId();
-                imageId += `&frame=${lengthState.ReferencedFrameNumber}`;
+                if (lengthState.ReferencedFrameNumber != undefined) { // add or update a frame parameter if needed
+                    const frameParameter = `&frame=${lengthState.ReferencedFrameNumber}`;
+                    if (imageId.indexOf('frame=') == -1) {
+                        imageId += frameParameter;
+                    } else {
+                        imageId.replace(/frame=[0-9]*/, frameParameter);
+                    }
+                }
             }
         });
     });
