@@ -2,6 +2,7 @@ function loadSRTools(Part10SRArrayBuffer, displaySets) {
     // get the dicom data as an Object
     let dicomData = dcmjs.data.DicomMessage.readFile(Part10SRArrayBuffer);
 
+
     let dataset = dcmjs.data.DicomMetaDictionary.naturalizeDataset(dicomData.dict);
 
     // add the length measurement to cornerstoneTools
@@ -9,7 +10,9 @@ function loadSRTools(Part10SRArrayBuffer, displaySets) {
 
     let toolState = imagingMeasurementsToToolState(dataset, displaySets);
 
-    toolStateManager.restoreToolState(toolState);
+    if (toolState != undefined) {
+      toolStateManager.restoreToolState(toolState);
+    }
 }
 
 function imagingMeasurementsToToolState(dataset, displaySets) {
@@ -18,6 +21,7 @@ function imagingMeasurementsToToolState(dataset, displaySets) {
     // TODO: generalize to the kinds of measurements the Viewer supports
     if (dataset.ContentTemplateSequence.TemplateIdentifier !== "1500") {
         console.warn("This code can only interpret TID 1500");
+        return(undefined);
     }
     toArray = function(x) { return (x.constructor.name === "Array" ? x : [x]); }
 
@@ -55,7 +59,8 @@ function imagingMeasurementsToToolState(dataset, displaySets) {
         displaySet.images.forEach(instanceMetadata => {
             if (lengthState.ReferencedInstanceUID === instanceMetadata._sopInstanceUID) {
                 imageId = instanceMetadata.getImageId();
-                if (lengthState.ReferencedFrameNumber != undefined) { // add or update a frame parameter if needed
+                const frame = lengthState.ReferencedFrameNumber
+                if (frame != undefined && !isNaN(frame)) { // add or update a frame parameter if needed
                     const frameParameter = `&frame=${lengthState.ReferencedFrameNumber}`;
                     if (imageId.indexOf('frame=') == -1) {
                         imageId += frameParameter;
