@@ -47,7 +47,7 @@ Meteor.startup(() => {
     Session.setDefault('leftSidebar', false);
     Session.setDefault('rightSidebar', false);
 
-    OHIF.viewer.defaultTool = 'wwwc';
+    OHIF.viewer.defaultTool = 'brush';
     OHIF.viewer.refLinesEnabled = true;
     OHIF.viewer.cine = {
         framesPerSecond: 24,

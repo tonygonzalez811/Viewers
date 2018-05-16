@@ -28,7 +28,7 @@ Template.viewportOverlay.helpers({
         }
 
         const viewport = cornerstone.getViewport(element);
-        if (!viewport) {
+        if (!viewport || !viewport.voi || !viewport.voi.windowWidth || !viewport.voi.windowCenter) {
             return '';
         }
 
