@@ -171,6 +171,15 @@ Template.toolbarSection.helpers({
 
         const buttonData = [];
 
+        // TODO: this is just a temp hook for the volume rendering
+        // There needs to be a way for plugins to register new tools
+        buttonData.push({
+            id: 'reloadVolumeRendering',
+            title: 'Volume Renderin',
+            classes: 'imageViewerCommand',
+            iconClasses: 'fa fa-undo'
+        });
+
         buttonData.push({
             id: 'zoom',
             title: 'Zoom',
