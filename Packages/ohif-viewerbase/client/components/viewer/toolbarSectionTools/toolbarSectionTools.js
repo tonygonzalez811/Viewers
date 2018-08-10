@@ -1,6 +1,27 @@
 import { Template } from 'meteor/templating';
 import { Meteor } from 'meteor/meteor';
 
+Template.toolbarSectionTools.helpers({
+    getToolbarButtons() {
+        Session.get('ToolbarPluginsChanged');
+
+        const instance = Template.instance();
+        let toolbarButtons = instance.data.toolbarButtons;
+
+        if (OHIF.plugins.toolbar &&
+            OHIF.plugins.toolbar.length) {
+            OHIF.plugins.toolbar.forEach(plugin => {
+                const pluginTools = plugin.hasTools();
+
+                toolbarButtons = toolbarButtons.concat(pluginTools)
+            })
+        }
+
+        return toolbarButtons;
+    }
+})
+
+
 Template.toolbarSectionTools.events({
     'click .expandable'(event, instance) {
         const $target = $(event.currentTarget);

@@ -13,6 +13,8 @@ export class ViewportPlugin extends OHIFPlugin {
         this._destroyed = false;
 
         this._setupListeners();
+
+        OHIF.plugins.viewport.push(this);
     }
 
     /**

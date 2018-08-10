@@ -2,6 +2,7 @@ import { OHIF } from 'meteor/ohif:core';
 
 import { OHIFPlugin } from './OHIFPlugin';
 import { ViewportPlugin } from './ViewportPlugin';
+import { ToolbarPlugin } from './ToolbarPlugin';
 
 // Each plugin registers an entry point function to be called
 // when the loading is complete.
@@ -9,7 +10,10 @@ import { ViewportPlugin } from './ViewportPlugin';
 const plugins = {
     OHIFPlugin,
     ViewportPlugin,
-    entryPoints: {}
+    ToolbarPlugin,
+    entryPoints: {},
+    viewport: [],
+    toolbar: [],
 };
 
 // TODO: When we reorganize the packages, we should figure out where to put this.
