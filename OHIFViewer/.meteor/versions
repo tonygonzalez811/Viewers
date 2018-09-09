@@ -80,15 +80,11 @@ momentjs:moment@2.22.2
 mongo@1.5.1
 mongo-dev-server@1.1.0
 mongo-id@1.0.7
-mxab:accounts-keycloak@0.0.2
-mxab:keycloak-loader@0.0.2
-mxab:keycloak-oauth@0.0.2
 natestrauser:select2@4.0.3
 npm-bcrypt@0.9.3
 npm-mongo@3.0.7
 oauth@1.2.3
 oauth-encryption@1.3.0
-oauth2@1.2.0
 observe-sequence@1.0.16
 ohif:commands@0.0.1
 ohif:core@0.0.1
@@ -112,7 +108,7 @@ ohif:study-list@0.0.1
 ohif:themes@0.0.1
 ohif:themes-common@0.0.1
 ohif:user@0.0.1
-ohif:user-keycloak@0.0.1
+ohif:user-oidc@0.0.1
 ohif:viewerbase@0.0.1
 ohif:wadoproxy@0.0.1
 ordered-dict@1.1.0

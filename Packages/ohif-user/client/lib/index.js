@@ -4,3 +4,4 @@ import './getAccessToken';
 import './login';
 import './logout';
 import './schema';
+import './userLoggedIn';

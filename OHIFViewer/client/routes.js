@@ -5,12 +5,12 @@ Router.configure({
     layoutTemplate: 'layout',
 });
 
-Router.waitOn(function() {
+/*Router.waitOn(function() {
     return [
         Meteor.subscribe('servers'),
         Meteor.subscribe('currentServer')
     ];
-});
+});*/
 
 Router.onBeforeAction('loading');
 
