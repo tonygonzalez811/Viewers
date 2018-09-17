@@ -18,7 +18,6 @@ Package.onUse(function(api) {
     api.use([
         'ohif:design',
         'ohif:core',
-        'ohif:log',
         'ohif:servers',
         'ohif:dicom-services',
         'ohif:dicomweb-client',

@@ -24,7 +24,6 @@ Package.onUse(function(api) {
         'ohif:core',
         'ohif:cornerstone-settings',
         'ohif:hotkeys',
-        'ohif:log'
     ]);
 
     const assets = [
@@ -241,7 +240,6 @@ Package.onTest(function(api) {
         'ohif:design',
         'ohif:core',
         'ohif:hotkeys',
-        'ohif:log'
     ], 'client');
 
     /*

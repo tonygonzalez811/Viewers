@@ -1,5 +1,7 @@
 Npm.depends({
-    'twbs-pagination': '1.4.1'
+    'twbs-pagination': '1.4.1',
+    'jquery.hotkeys': '0.1.0'
+    loglevel: '1.4.1'
 });
 
 Package.describe({
@@ -18,6 +20,8 @@ Package.onUse(function(api) {
     api.use('underscore');
     api.use('templating');
     api.use('reactive-var');
+    api.use('session');
+    api.use('cultofcoders:persistent-session');
 
     // Router dependencies
     api.use('clinical:router@2.0.19', 'client');
@@ -38,6 +42,11 @@ Package.onUse(function(api) {
     ], 'client');
 
     api.mainModule('main.js', ['client', 'server']);
+
+    api.use([
+        'accounts-base',
+        'accounts-password'
+    ], 'server');
 
     // Client imports and routes
     api.addFiles('client/index.js', 'client');

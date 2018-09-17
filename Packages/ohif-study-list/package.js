@@ -29,7 +29,6 @@ Package.onUse(function(api) {
     // Our custom packages
     api.use('ohif:design');
     api.use('ohif:core');
-    api.use('ohif:log');
     api.use('ohif:servers');
     api.use('ohif:dicom-services');
     api.use('ohif:viewerbase');
