@@ -39,9 +39,9 @@ HP.Protocol = class Protocol {
 
         // If we are logged in while creating this Protocol,
         // store this information as well
-        if (Meteor.users && Meteor.userId) {
-            this.createdBy = Meteor.userId;
-            this.modifiedBy = Meteor.userId;
+        if (OHIF.user.userLoggedIn()) {
+            this.createdBy = OHIF.user.getUserId();
+            this.modifiedBy = OHIF.user.getUserId();
         }
 
         // Create two empty Sets specifying which roles
@@ -107,8 +107,8 @@ HP.Protocol = class Protocol {
     protocolWasModified() {
         // If we are logged in while modifying this Protocol,
         // store this information as well
-        if (Meteor.users && Meteor.userId) {
-            this.modifiedBy = Meteor.userId;
+        if (OHIF.user.userLoggedIn()) {
+            this.modifiedBy = OHIF.user.getUserId();
         }
 
         // Protocol has been modified, so mark priors information
