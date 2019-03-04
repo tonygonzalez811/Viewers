@@ -55,6 +55,6 @@ yarn run prepare
 sed -i "s,http://localhost:5000,${ROOT_URL},g" index.html
 sed -i 's,"routerBasename": "/","routerBasename": "/demo",g' index.html
 rm -rf node_modules
-mkdir ../../../docs/_book/demo/
-cp -R * ../../../docs/_book/demo/
-cp ../../../_redirects ../../../docs/_book/_redirects
+mkdir ../../../docs/latest/_book/demo/
+cp -R * ../../../docs/latest/_book/demo/
+cp ../../../_redirects ../../../docs/latest/_book/_redirects
