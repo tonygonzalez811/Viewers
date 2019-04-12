@@ -2,10 +2,10 @@
   "servers": {
     "dicomWeb": [
       {
-        "name": "DCM4CHEE",
-        "wadoUriRoot": "http://localhost:8080/dcm4chee-arc/aets/DCM4CHEE/wado",
-        "qidoRoot": "http://localhost:8080/dcm4chee-arc/aets/DCM4CHEE/rs",
-        "wadoRoot": "http://localhost:8080/dcm4chee-arc/aets/DCM4CHEE/rs",
+        "name": "AUTANA",
+        "wadoUriRoot": "http://localhost:8080/dcm4chee-arc/aets/AUTANA/wado",
+        "qidoRoot": "http://localhost:8080/dcm4chee-arc/aets/AUTANA/rs",
+        "wadoRoot": "http://localhost:8080/dcm4chee-arc/aets/AUTANA/rs",
         "qidoSupportsIncludeField": false,
         "imageRendering": "wadouri",
         "requestOptions": {
@@ -16,8 +16,8 @@
         }
     }],
     "dimse": [{
-      "name": "DCM4CHEE_DIMSE",
-      "wadoUriRoot": "http://localhost:8080/dcm4chee-arc/aets/DCM4CHEE/wado",
+      "name": "AUTANA_DIMSE",
+      "wadoUriRoot": "http://localhost:8080/dcm4chee-arc/aets/AUTANA/wado",
       "requestOptions": {
         "auth": "admin:admin",
         "logRequests": true,
@@ -27,15 +27,15 @@
       "peers": [
         {
           "host": "localhost",
-          "port": 4242,
-          "aeTitle": "DCM4CHEE",
+          "port": 11112,
+          "aeTitle": "AUTANA",
           "default": true,
           "supportsInstanceRetrievalByStudyUid": false
         },
         {
           "host": "0.0.0.0",
-          "port": 11112,
-          "aeTitle": "DCM4CHEE",
+          "port": 11113,
+          "aeTitle": "OHIF",
           "default": true,
           "server": true
         }
